@@ -1,12 +1,13 @@
 /**
  * @file LTC2943.h
  *
- * @brief Driver API for LTC2943 Chip
+ * @brief Example Driver API for the LTC2943 Chip
  */
 #ifndef LTC2943_H_
 #define LTC2943_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /**
  * @brief Initialise the Driver
