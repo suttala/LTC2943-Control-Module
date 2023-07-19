@@ -1,7 +1,7 @@
 #ifndef CHIPCONTROL_H_
 #define CHIPCONTROL_H_
 
-#include "LTC2943.h"
+#include <stdint.h>
 #include <stdbool.h>
 
 /* Defining register addresses */
