@@ -27,8 +27,8 @@
 
 /* Command status codes */
 typedef enum {
-    CMD_STATUS_SUCCESS = 0, // Sending command was successful
-    CMD_STATUS_FAILURE = 1, // Sending command was successful
+    CMD_STATUS_FAILURE = 0, // Sending command was unsuccessful
+    CMD_STATUS_SUCCESS = 1, // Sending command was successful
 } cmd_status_t;
 
 /* Charge status codes */
