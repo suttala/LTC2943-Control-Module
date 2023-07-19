@@ -26,20 +26,63 @@
 
 /* Command status codes */
 typedef enum {
-    CMD_STATUS_SUCCESS = 0,
-    CMD_STATUS_FAILURE = 1,
+    CMD_STATUS_SUCCESS = 0, // Sending command was successful
+    CMD_STATUS_FAILURE = 1, // Sending command was successful
 } cmd_status_t;
 
+/* Charge status codes */
+typedef enum {
+    LTC2948_CHRG_STATUS_OK    = 0, // Charge is between tresholds
+    LTC2948_CHRG_STATUS_HIGH  = 1, // Charge is above the high treshold
+    LTC2948_CHRG_STATUS_LOW   = 2, // Charge is below the low treshold
+    LTC2948_CHRG_STATUS_ERROR = 3, // Both HIGH and LOW statuses reported
+} chrg_status_t;
 
+
+
+/* LTC2948 CHIPCONTROL API */
+
+
+/**
+ * @brief Get the current LTC2948 ADC mode
+ *
+ * @param resp : uint8_t where the two MSB represent the ADC mode
+ * @return cmd_status_t
+ */
 cmd_status_t get_adc_mode(uint8_t *resp);
 
+/**
+ * @brief Set the LTC2948 ADC mode
+ *
+ * @param adc_mode : New ADC to be set
+ * @return cmd_status_t
+ */
 cmd_status_t set_adc_mode(uint8_t adc_mode);
 
-cmd_status_t check_temp_alert(uint8_t *resp);
+/**
+ * @brief Checks the LTC2948 temperature alert status
+ *
+ * @param resp : boolean value where true represents an active alert
+ * @return cmd_status_t
+ */
+cmd_status_t check_temp_alert(bool *resp);
 
+/**
+ * @brief Set LTC2948 charge tresholds
+ *
+ * @param min : Minimum charge treshold to be set
+ * @param max : Maximum charge treshold to be set
+ * @return cmd_status_t
+ */
 cmd_status_t set_charge_treshold(uint8_t min, uint8_t max);
 
-cmd_status_t check_charge_status(uint8_t *resp);
+/**
+ * @brief Check if the LTC2948 charge is within its tresholds
+ *
+ * @param resp : chrg_status_t value
+ * @return cmd_status_t
+ */
+cmd_status_t check_charge_status(chrg_status_t *resp);
 
 
 #endif  // CHIPCONTROL_H_
