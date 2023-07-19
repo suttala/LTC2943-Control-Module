@@ -39,6 +39,11 @@ typedef enum {
     LTC2948_CHRG_STATUS_ERROR = 3, // Both HIGH and LOW statuses reported
 } chrg_status_t;
 
+/* Temperature status codes */
+typedef enum {
+    TEMP_STATUS_OK = 0,   // Sending command was unsuccessful
+    CMD_STATUS_ALERT = 1, // Sending command was successful
+} temp_status_t;
 
 
 /* LTC2948 CHIPCONTROL API */
@@ -63,10 +68,10 @@ cmd_status_t set_adc_mode(uint8_t adc_mode);
 /**
  * @brief Checks the LTC2948 temperature alert status
  *
- * @param resp : boolean value where true represents an active alert
+ * @param resp : temp_status_t value where 0 is OK and 1 an active alert
  * @return cmd_status_t
  */
-cmd_status_t check_temp_alert(bool *resp);
+cmd_status_t check_temp_alert(temp_status_t *resp);
 
 /**
  * @brief Set LTC2948 charge tresholds

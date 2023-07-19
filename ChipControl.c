@@ -34,3 +34,15 @@ cmd_status_t set_adc_mode(uint8_t adc_mode) {
     set_bits_by_mask(&data, MASK_ADC_MODE, adc_mode);
     return (cmd_status_t)LTC2943_Write(LTC2943_B_CONTROL, &data, 1);
 }
+
+cmd_status_t check_temp_alert(temp_status_t *resp) {
+    uint8_t data;
+    if (!LTC2943_Read(LTC2943_A_STATUS, &data, 1)) {
+        return CMD_STATUS_FAILURE;
+    }
+    *resp = 0;
+    if (!(get_bits_by_mask(data, MASK_TEMP_ALRT) == 0)) {
+        *resp = 1;
+    }
+    return CMD_STATUS_SUCCESS;
+}
