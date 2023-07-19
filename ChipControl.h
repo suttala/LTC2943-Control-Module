@@ -14,10 +14,10 @@
 #define LTC2948_H_CHRG_TRSHLD 0b00000111
 
 /* Defining operation masks */
-#define ADC_MODE_MASK         0b11000000
-#define TEMP_ALRT_MASK        0b00010000
-#define CHRG_ALRT_HI_MASK     0b00001000
-#define CHRG_ALRT_LO_MASK     0b00000100
+#define MASK_ADC_MODE         0b11000000
+#define MASK_TEMP_ALRT        0b00010000
+#define MASK_CHRG_ALRT_HI     0b00001000
+#define MASK_CHRG_ALRT_LO     0b00000100
 
 /* ADC modes */
 #define ADC_MODE_AUTOMATIC    0b11000000
