@@ -2,6 +2,7 @@
 #define CHIPCONTROL_H_
 
 #include "LTC2943.h"
+#include <stdbool.h>
 
 /* Defining register addresses */
 #define LTC2943_A_STATUS      0b00000000
