@@ -33,7 +33,7 @@ typedef enum {
 
 cmd_status_t get_adc_mode(uint8_t *resp);
 
-cmd_status_t set_adc_mode(uint8_t *adc_mode);
+cmd_status_t set_adc_mode(uint8_t adc_mode);
 
 cmd_status_t check_temp_alert(uint8_t *resp);
 
