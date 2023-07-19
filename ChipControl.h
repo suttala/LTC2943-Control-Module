@@ -16,8 +16,7 @@
 /* Defining operation masks */
 #define MASK_ADC_MODE         0b11000000
 #define MASK_TEMP_ALRT        0b00010000
-#define MASK_CHRG_ALRT_HI     0b00001000
-#define MASK_CHRG_ALRT_LO     0b00000100
+#define MASK_CHRG_ALRT        0b00001100
 
 /* ADC modes */
 #define ADC_MODE_AUTOMATIC    0b11000000
@@ -41,8 +40,8 @@ typedef enum {
 
 /* Temperature status codes */
 typedef enum {
-    TEMP_STATUS_OK = 0,   // Sending command was unsuccessful
-    CMD_STATUS_ALERT = 1, // Sending command was successful
+    LTC2948_TEMP_STATUS_OK    = 0, // Sending command was unsuccessful
+    LTC2948_TEMP_STATUS_ALERT = 1, // Sending command was successful
 } temp_status_t;
 
 
