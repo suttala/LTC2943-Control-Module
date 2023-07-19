@@ -31,15 +31,15 @@ typedef enum {
 } cmd_status_t;
 
 
-cmd_status_t get_adc_mode();
+cmd_status_t get_adc_mode(uint8_t *resp);
 
-cmd_status_t set_adc_mode(adc_mode_t *mode);
+cmd_status_t set_adc_mode(uint8_t *adc_mode);
 
-cmd_status_t check_temp_alert();
+cmd_status_t check_temp_alert(uint8_t *resp);
 
-cmd_status_t set_charge_treshold(uint8_t *min, uint8_t *max);
+cmd_status_t set_charge_treshold(uint8_t min, uint8_t max);
 
-cmd_status_t check_charge();
+cmd_status_t check_charge_status(uint8_t *resp);
 
 
 #endif  // CHIPCONTROL_H_
