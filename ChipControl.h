@@ -5,24 +5,17 @@
 #include <stdbool.h>
 
 /* Defining register addresses */
-#define LTC2943_A_STATUS      0b00000000
-#define LTC2943_B_CONTROL     0b00000001
-#define LTC2943_B_CONTROL     0b00000001
-#define LTC2948_E_CHRG_TRSHLD 0b00000100
-#define LTC2948_F_CHRG_TRSHLD 0b00000101
-#define LTC2948_G_CHRG_TRSHLD 0b00000110
-#define LTC2948_H_CHRG_TRSHLD 0b00000111
+#define LTC2943_A_STATUS      0x00
+#define LTC2943_B_CONTROL     0x01
+#define LTC2943_E_CHRG_TRSHLD 0x04
+#define LTC2943_F_CHRG_TRSHLD 0x05
+#define LTC2943_G_CHRG_TRSHLD 0x06
+#define LTC2943_H_CHRG_TRSHLD 0x07
 
 /* Defining operation masks */
-#define MASK_ADC_MODE         0b11000000
-#define MASK_TEMP_ALRT        0b00010000
-#define MASK_CHRG_ALRT        0b00001100
-
-/* ADC modes */
-#define ADC_MODE_AUTOMATIC    0b11000000
-#define ADC_MODE_SCAN         0b10000000
-#define ADC_MODE_MANUAL       0b01000000
-#define ADC_MODE_SLEEP        0b00000000
+#define MASK_ADC_MODE         0xC0
+#define MASK_TEMP_ALRT        0x10
+#define MASK_CHRG_ALRT        0x0C
 
 /* Command status codes */
 typedef enum {
@@ -30,18 +23,26 @@ typedef enum {
     CMD_STATUS_SUCCESS = 1, // Sending command was successful
 } cmd_status_t;
 
+/* ADC modes */
+typedef enum {
+    LTC2948_ADC_MODE_AUTO   = 0xC0,
+    LTC2948_ADC_MODE_SCAN   = 0x80,
+    LTC2948_ADC_MODE_MANUAL = 0x40,
+    LTC2948_ADC_MODE_SLEEP  = 0x00,
+} adc_mode_t;
+
 /* Charge status codes */
 typedef enum {
-    LTC2948_CHRG_STATUS_OK    = 0, // Charge is between tresholds
-    LTC2948_CHRG_STATUS_HIGH  = 1, // Charge is above the high treshold
-    LTC2948_CHRG_STATUS_LOW   = 2, // Charge is below the low treshold
-    LTC2948_CHRG_STATUS_ERROR = 3, // Both HIGH and LOW statuses reported
+    LTC2948_CHRG_STATUS_OK    = 0x00, // Charge is between tresholds
+    LTC2948_CHRG_STATUS_HIGH  = 0x08, // Charge is above the high treshold
+    LTC2948_CHRG_STATUS_LOW   = 0x04, // Charge is below the low treshold
+    LTC2948_CHRG_STATUS_ERROR = 0x0C, // Both HIGH and LOW statuses reported
 } chrg_status_t;
 
 /* Temperature status codes */
 typedef enum {
-    LTC2948_TEMP_STATUS_OK    = 0, // Sending command was unsuccessful
-    LTC2948_TEMP_STATUS_ALERT = 1, // Sending command was successful
+    LTC2948_TEMP_STATUS_OK    = 0x00, // No temperature alert
+    LTC2948_TEMP_STATUS_ALERT = 0x10, // Temperature alert found
 } temp_status_t;
 
 
@@ -54,7 +55,7 @@ typedef enum {
  * @param resp : uint8_t where the two MSB represent the ADC mode
  * @return cmd_status_t
  */
-cmd_status_t get_adc_mode(uint8_t *resp);
+cmd_status_t get_adc_mode(adc_mode_t *resp);
 
 /**
  * @brief Set the LTC2948 ADC mode
@@ -62,7 +63,7 @@ cmd_status_t get_adc_mode(uint8_t *resp);
  * @param adc_mode : New ADC to be set
  * @return cmd_status_t
  */
-cmd_status_t set_adc_mode(uint8_t adc_mode);
+cmd_status_t set_adc_mode(adc_mode_t adc_mode);
 
 /**
  * @brief Checks the LTC2948 temperature alert status
