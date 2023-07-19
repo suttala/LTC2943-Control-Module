@@ -6,6 +6,9 @@ static uint8_t get_bits_by_mask(uint8_t data, uint8_t mask) {
     return data & mask;
 }
 
+static void set_bits_by_mask(uint8_t *data, uint8_t mask, uint8_t value) {
+    *data = (*data & ~mask) | (value & mask);
+}
 
 /* LTC2948 CHIPCONTROL API */
 
@@ -14,9 +17,20 @@ cmd_status_t get_adc_mode(uint8_t *resp) {
     uint8_t data;
     if (!LTC2943_Read(LTC2943_B_CONTROL, &data, 1)) {
         return CMD_STATUS_FAILURE;
-    } else {
+    }
+    *resp = get_bits_by_mask(data, MASK_ADC_MODE);
+    return CMD_STATUS_SUCCESS;
+}
 
-        *resp = get_bits_by_mask(data, MASK_ADC_MODE);
+cmd_status_t set_adc_mode(uint8_t adc_mode) {
+    uint8_t data;
+    if (!LTC2943_Read(LTC2943_B_CONTROL, &data, 1)) {
+        return CMD_STATUS_FAILURE;
+    }
+    if (get_bits_by_mask(data, MASK_ADC_MODE) == adc_mode) {
         return CMD_STATUS_SUCCESS;
     }
+
+    set_bits_by_mask(&data, MASK_ADC_MODE, adc_mode);
+    return (cmd_status_t)LTC2943_Write(LTC2943_B_CONTROL, &data, 1);
 }
