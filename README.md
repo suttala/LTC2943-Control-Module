@@ -1,8 +1,14 @@
 # ChipControl - A LTC2943 Control Module
 ![GitHub last commit](https://img.shields.io/github/last-commit/suttala/LTC2943-Control-Module)
 
-Interface for the LTC2943 Multicell Battery Gas Gauge.
+### Introduction
+The ChipControl API, provides access to some key features of the LTC2943 Battery Gas Gauge.
 
+Overview of the LTC2943 device from its datasheet:
+> The LTC2943 is a battery gas gauge designed for use
+> with multicell batteries with terminal voltages from 3.6V
+> to 20V. It measures battery charge and discharge, battery
+> voltage, current and its own temperature.
 ### Dependencies
 * CMake & Make
 * GCC
@@ -12,18 +18,6 @@ Run these commands to build and execute the example provided in `main.c`
 1. `mkdir build && cd build`
 2. `cmake .. && make`
 3. `./ChipControl`
-
-
-### Introduction
-
-The ChipControl API, provides access to some key features of the LTC2943 Battery Gas Gauge.
-
-Overview of the LTC2943 device from its datasheet:
-
-> The LTC2943 is a battery gas gauge designed for use
-> with multicell batteries with terminal voltages from 3.6V
-> to 20V. It measures battery charge and discharge, battery
-> voltage, current and its own temperature.
 
 ### Features
 
@@ -51,8 +45,3 @@ Then, the ADC mode is set to 0xC0 = AUTO. Finally the ADC mode is fetched again 
 
 **NOTE:** In order to build & test the API in this example, I created a "dummy" version of the assumed LTC2943 Driver program that can be found from `LTC2943.h` & `LTC2943.c`.
 As such, these are only meant for debugging and testing the API.
-
-
-
-
-
