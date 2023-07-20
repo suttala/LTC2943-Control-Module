@@ -80,7 +80,7 @@ cmd_status_t check_temp_alert(temp_status_t *resp);
  * @param max : Maximum charge treshold to be set
  * @return cmd_status_t
  */
-cmd_status_t set_charge_treshold(uint8_t min, uint8_t max);
+cmd_status_t set_charge_treshold(uint16_t min, uint16_t max);
 
 /**
  * @brief Check if the LTC2948 charge is within its tresholds
