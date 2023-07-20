@@ -1,7 +1,12 @@
 /**
  * @file LTC2943.h
+ * @author Alarik Sutter (alarik.sutter@aalto.fi)
+ * @brief Example Driver API for the LTC2943 Device
  *
- * @brief Example Driver API for the LTC2943 Chip
+ * @date 2023-07-20
+ *
+ * @note THIS "DUMMY" HEADER IS ONLY FOR TESTING THE
+ *       CHIPCONTROL MODULE WITH THE PROVIDED MAIN.C
  */
 #ifndef LTC2943_H_
 #define LTC2943_H_

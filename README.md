@@ -1,18 +1,17 @@
 # ChipControl - A LTC2943 Control Module
-
-![GitHub latest commit](https://img.shields.io/github/last-commit/suttala/LTC2943-Control-Module)
+![GitHub last commit](https://img.shields.io/github/last-commit/suttala/LTC2943-Control-Module)
 
 Interface for the LTC2943 Multicell Battery Gas Gauge.
 
-### Dependencies ??
+### Dependencies
+* CMake & Make
+* GCC
 
-* Lorem
-* Ipsum
-
-### Build ??
-
-1. this
-2. then that
+### Build & Run
+Run these commands to build and execute the example provided in `main.c`
+1. `mkdir build && cd build`
+2. `cmake .. && make`
+3. `./ChipControl`
 
 
 ### Introduction
@@ -39,12 +38,19 @@ Overview of the LTC2943 device from its datasheet:
 * Code editor : Visual Studio Code
 * Version control : Git, hosted in GitHub
 * OS : Ubuntu 20.04
-* Build system : CMake ??
+* Build system : CMake
 
 ### Reference material
 
 * [LTC2943 Datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/2943fa.pdf)
 * The Device Driver API provided in `LTC2943.h`
+
+### Example
+An example of how the ChipControl API may be used can be found in `main.c`. In this example, first, the ADC mode is fetched and printed (0x00 = SLEEP).
+Then, the ADC mode is set to 0xC0 = AUTO. Finally the ADC mode is fetched again to make sure the mode is now changed.
+
+**NOTE:** In order to build & test the API in this example, I created a "dummy" version of the assumed LTC2943 Driver program that can be found from `LTC2943.h` & `LTC2943.c`.
+As such, these are only meant for debugging and testing the API.
 
 
 
