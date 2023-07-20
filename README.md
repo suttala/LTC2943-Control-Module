@@ -1,6 +1,6 @@
 # ChipControl - A LTC2943 Control Module
 
-![GitHub last commit](https://github.com/suttala/LTC2943-Control-Module)
+![GitHub last commit](https://img.shields.io/github/last-commit/suttala/LTC2943-Control-Module)
 
 Interface for the LTC2943 Multicell Battery Gas Gauge.
 
