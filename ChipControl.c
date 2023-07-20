@@ -1,26 +1,37 @@
+/**
+ * @file ChipControl.c
+ * @author Alarik Sutter (alarik.sutter@aalto.fi)
+ * @brief Source for the LTC2943 ChipControl C-module
+ *
+ * @date 2023-07-20
+ */
 #include "ChipControl.h"
 #include "LTC2943.h"
 
-/* Static helper functions */
+/* STATIC HELPER FUNCTIONS */
+
+/* Returns a byte where a given mask was applied */
 static uint8_t get_bits_by_mask(uint8_t data, uint8_t mask) {
     return data & mask;
 }
 
+/* Alters the data to hold the given values according to the mask */
 static void set_bits_by_mask(uint8_t *data, uint8_t mask, uint8_t value) {
     *data = (*data & ~mask) | (value & mask);
 }
 
+/* Gets the most significant byte from a 16-bit value */
 static uint8_t get_high_byte(uint16_t data) {
     return (data >> 8) & 0xFF;
 }
 
+/* Gets the least significant byte from a 16-bit value */
 static uint8_t get_low_byte(uint16_t data) {
     return data & 0xFF;
 }
 
 
 /* LTC2943 CHIPCONTROL API */
-
 
 cmd_status_t get_adc_mode(adc_mode_t *resp) {
     uint8_t data;

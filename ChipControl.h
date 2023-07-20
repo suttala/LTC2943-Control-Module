@@ -1,3 +1,10 @@
+/**
+ * @file ChipControl.h
+ * @author Alarik Sutter (alarik.sutter@aalto.fi)
+ * @brief Header for the LTC2943 ChipControl C-module
+ *
+ * @date 2023-07-20
+ */
 #ifndef CHIPCONTROL_H_
 #define CHIPCONTROL_H_
 
@@ -49,6 +56,14 @@ typedef enum {
 
 /* LTC2943 CHIPCONTROL API */
 
+/*
+   All Read and Write operations in the below services are expected
+   to return true if the operation was successful and false if not.
+   In case of a failure, a suitable CMD_STATUS error code is returned.
+
+   If no failure is detected, the ChipControl-module assumes that the
+   command operation went through successfully.
+*/
 
 /**
  * @brief Get the current LTC2943 ADC mode
@@ -63,6 +78,10 @@ cmd_status_t get_adc_mode(adc_mode_t *resp);
  *
  * @param adc_mode : New ADC to be set
  * @return cmd_status_t
+ *
+ * @note This service checks if the given state is already inhabited -
+ *       if so, no write action is needed and the command is considered
+ *       successful.
  */
 cmd_status_t set_adc_mode(adc_mode_t adc_mode);
 
