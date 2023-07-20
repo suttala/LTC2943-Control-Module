@@ -74,16 +74,45 @@ typedef enum {
 cmd_status_t get_adc_mode(adc_mode_t *resp);
 
 /**
- * @brief Set the LTC2943 ADC mode
+ * @brief Set the ADC mode to AUTO
  *
- * @param adc_mode : New ADC to be set
  * @return cmd_status_t
  *
- * @note This service checks if the given state is already inhabited -
- *       if so, no write action is needed and the command is considered
- *       successful.
+ * @note See static function 'set_adc_mode' in ChipControl.c for
+ *       more information on how IO is handled with LTC2943
  */
-cmd_status_t set_adc_mode(adc_mode_t adc_mode);
+cmd_status_t set_adc_mode_auto();
+
+/**
+ * @brief Set the ADC mode to SCAN
+ *
+ * @return cmd_status_t
+ *
+ * @note See static function 'set_adc_mode' in ChipControl.c for
+ *       more information on how IO is handled with LTC2943
+ */
+cmd_status_t set_adc_mode_scan();
+
+/**
+ * @brief Set the ADC mode to MANUAL
+ *
+ * @return cmd_status_t
+ *
+ * @note See static function 'set_adc_mode' in ChipControl.c for
+ *       more information on how IO is handled with LTC2943
+ */
+cmd_status_t set_adc_mode_manual();
+
+/**
+ * @brief Set the ADC mode to SLEEP
+ *
+ * @return cmd_status_t
+ *
+ * @note See static function 'set_adc_mode' in ChipControl.c for
+ *       more information on how IO is handled with LTC2943
+ */
+cmd_status_t set_adc_mode_sleep();
+
 
 /**
  * @brief Checks the LTC2943 temperature alert status

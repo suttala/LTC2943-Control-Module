@@ -10,39 +10,59 @@
 
 /* STATIC HELPER FUNCTIONS */
 
-/* Returns a byte where a given mask was applied */
+/**
+ * @brief Returns a byte where a given mask was applied
+ *
+ * @param data : The whole register
+ * @param mask : Mask that is used to null out unnecessary bits from the register
+ * @return uint8_t
+ */
 static uint8_t get_bits_by_mask(uint8_t data, uint8_t mask) {
     return data & mask;
 }
 
-/* Alters the data to hold the given values according to the mask */
+/**
+ * @brief Alters the data to hold the given values according to the mask
+ *
+ * @param data : The byte that is being altered
+ * @param mask : Mask used in finding which bits to set
+ * @param value : Byte that defines new binary values
+ */
 static void set_bits_by_mask(uint8_t *data, uint8_t mask, uint8_t value) {
     *data = (*data & ~mask) | (value & mask);
 }
 
-/* Gets the most significant byte from a 16-bit value */
+/**
+ * @brief Gets the most significant byte from a 16-bit value
+ *
+ * @param data : The 16-bit value to get the high byte from
+ * @return uint8_t
+ */
 static uint8_t get_high_byte(uint16_t data) {
     return (data >> 8) & 0xFF;
 }
 
-/* Gets the least significant byte from a 16-bit value */
+/**
+ * @brief Gets the least significant byte from a 16-bit value
+ *
+ * @param data : The 16-bit value to get the low byte from
+ * @return uint8_t
+ */
 static uint8_t get_low_byte(uint16_t data) {
     return data & 0xFF;
 }
 
-
-/* LTC2943 CHIPCONTROL API */
-
-cmd_status_t get_adc_mode(adc_mode_t *resp) {
-    uint8_t data;
-    if (!LTC2943_Read(LTC2943_B_CONTROL, &data, 1)) {
-        return CMD_STATUS_READ_FAILURE;
-    }
-    *resp = get_bits_by_mask(data, MASK_ADC_MODE);
-    return CMD_STATUS_SUCCESS;
-}
-
-cmd_status_t set_adc_mode(adc_mode_t adc_mode) {
+/**
+ * @brief Set the LTC2943 ADC mode
+ *
+ * @param adc_mode : New ADC to be set
+ * @return cmd_status_t
+ *
+ * @note This service checks if the given state is already inhabited -
+ *       if so, no write action is needed and the command is considered
+ *       successful.
+ */
+static cmd_status_t set_adc_mode(adc_mode_t adc_mode) {
     uint8_t data;
     if (!LTC2943_Read(LTC2943_B_CONTROL, &data, 1)) {
         return CMD_STATUS_READ_FAILURE;
@@ -57,6 +77,33 @@ cmd_status_t set_adc_mode(adc_mode_t adc_mode) {
         return CMD_STATUS_WRITE_FAILURE;
     }
     return CMD_STATUS_SUCCESS;
+}
+
+/* LTC2943 CHIPCONTROL API */
+
+cmd_status_t get_adc_mode(adc_mode_t *resp) {
+    uint8_t data;
+    if (!LTC2943_Read(LTC2943_B_CONTROL, &data, 1)) {
+        return CMD_STATUS_READ_FAILURE;
+    }
+    *resp = get_bits_by_mask(data, MASK_ADC_MODE);
+    return CMD_STATUS_SUCCESS;
+}
+
+cmd_status_t set_adc_mode_auto() {
+    return set_adc_mode(LTC2943_ADC_MODE_AUTO);
+}
+
+cmd_status_t set_adc_mode_scan() {
+    return set_adc_mode(LTC2943_ADC_MODE_SCAN);
+}
+
+cmd_status_t set_adc_mode_manual() {
+    return set_adc_mode(LTC2943_ADC_MODE_MANUAL);
+}
+
+cmd_status_t set_adc_mode_sleep() {
+    return set_adc_mode(LTC2943_ADC_MODE_SLEEP);
 }
 
 cmd_status_t check_temp_alert(temp_status_t *resp) {
